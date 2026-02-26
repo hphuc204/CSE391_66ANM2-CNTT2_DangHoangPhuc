@@ -1,0 +1,89 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background: #ffffff;
+}
+
+.box{
+  width: 88%;
+  max-width: 980px;
+  margin: 24px auto;
+  border: 2px solid #2f2f2f;
+  background: #fff;
+  padding: 22px 26px 26px;
+}
+
+h2{
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin: 6px 0 18px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* row */
+.row{
+  display: flex;
+}
+
+/* 2 input trên cùng */
+.row.two{
+  gap: 24px;
+}
+
+.row.two input{
+  flex: 1;
+}
+
+/* 1 input/textarea full */
+.row.one input,
+.row.one textarea{
+  width: 100%;
+}
+
+/* input + textarea style giống ảnh */
+input, textarea{
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;         /* bo rất nhẹ như ảnh */
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+}
+
+textarea{
+  height: 260px;
+  /* GIỐNG ẢNH: giữ resize (có “góc kéo” bên phải dưới) */
+  resize: both;
+}
+
+/* hàng dưới */
+.row.bottom{
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+button{
+  padding: 12px 22px;
+  background: #79c0ea;
+  color: #fff;
+  border: 1px solid #4da4d6;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.note{
+  font-size: 14px;
+  color: #666;
+}
