@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Employee Form (HTML/CSS only)</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#eee;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#111;
+}
+
+.page{
+  width:540px;
+  margin:20px auto;
+  background:#fff;
+  border:1px solid #cfcfcf;
+  padding:18px;
+}
+
+/* ===== Section title ===== */
+.sec-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:700;
+  margin:8px 0 12px;
+}
+.sec-head i{
+  flex:1;
+  border-top:2px solid #bdbdbd;
+}
+
+/* ===== Rows ===== */
+.row{
+  display:grid;
+  grid-template-columns:165px 1fr 40px;
+  gap:12px;
+  margin:6px 0;
+  align-items:center;
+}
+.row.top{align-items:start}
+
+.label{
+  font-weight:700;
+  font-size:13px;
+  padding-left:18px;
+  white-space:nowrap;
+}
+
+/* ===== Inputs ===== */
+.field{position:relative}
+
+input[type="text"], select{
+  width:100%;
+  height:26px;
+  border:2px solid #8f8f8f;
+  background:#fff;
+  padding:2px 6px;
+  font-size:13px;
+  border-radius:2px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.12);
+}
+
+.short{width:130px}
+
+.plain{
+  font-size:13px;
+  font-weight:700;
+  padding-left:2px;
+}
+
+/* icon inside input */
+.has-icon input{padding-right:30px}
+.in-icon{
+  position:absolute;
+  right:6px;
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;
+  height:16px;
+  border:1px solid #8f8f8f;
+  background:#f5f5f5;
+  font-size:12px;
+  text-align:center;
+  line-height:16px;
+}
+
+/* outside icon */
+.out-icon{font-size:12px;font-weight:700}
+.out-empty{color:transparent}
+
+/* ===== Radio / checkbox ===== */
+.radio-col label,
+.checks label{
+  display:block;
+  font-size:13px;
+  margin:2px 0;
+}
+input[type="radio"],input[type="checkbox"]{
+  transform:translateY(1px);
+  margin-right:6px;
+}
+
+/* ===== Notes editor ===== */
+.row.notes{align-items:start}
+.notes .label{padding-top:52px}
+
+.editor{
+  border:2px solid #8f8f8f;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.1);
+}
+.toolbar{
+  background:#f1f1f1;
+  border-bottom:1px solid #c9c9c9;
+  padding:4px;
+  display:flex;
+  gap:3px;
+  flex-wrap:wrap;
+}
+.tool{
+  width:18px;height:18px;
+  border:1px solid #d0d0d0;
+  background:#fff;
+  font-size:11px;
+  text-align:center;
+  line-height:18px;
+}
+.editor-area{
+  padding:10px;
+  min-height:120px;
+  font-family:"Times New Roman", serif;
+  font-size:16px;
+}
+
+/* ===== Captcha FIX (KHÔNG LỆCH) ===== */
+.captcha-wrap{width:100%}
+
+.captcha-top{
+  display:grid;
+  grid-template-columns:170px 1fr;
+  align-items:end;
+  margin-bottom:6px;
+}
+
+.captcha-code{
+  font-family:"Courier New", monospace;
+  font-size:30px;
+  letter-spacing:6px;
+}
+
+.captcha-change{
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  padding-bottom:2px;
+  white-space:nowrap;
+}
+
+.captcha-input{
+  width:100%;
+  height:26px;
+}
+
+/* ===== Footer ===== */
+.nav-left{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+.nav-btn{
+  width:18px;height:18px;
+  border:1px solid #666;
+  background:#333;
+  color:#fff;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:2px solid #bdbdbd;
+}
+.required{font-size:12px;font-weight:700}
+
+.buttons{display:flex;gap:6px}
+.btn{
+  height:24px;
+  padding:0 10px;
+  background:#333;
+  color:#fff;
+  font-size:12px;
+  border:1px solid #333;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn.cancel{background:#444}
+.btn span{
+  width:12px;height:12px;
+  border:1px solid #fff;
+}
+.btn.cancel span{
+  border:none;
+  width:auto;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<!-- ===== Basic Info ===== -->
+<div class="sec-head"><span>Basic Info</span><i></i></div>
+
+<div class="row">
+  <div class="label">Employee ID</div>
+  <div class="field"><div class="plain">9</div></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">Last Name</div>
+  <div class="field"><div class="plain">Dodsworth</div></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">First Name</div>
+  <div class="field has-icon">
+    <input type="text" value="Anne">
+    <span class="in-icon">?</span>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<!-- ===== Gender (FIX) ===== -->
+<div class="row top">
+  <div class="label">Gender</div>
+  <div class="field radio-col">
+    <!-- chọn None để bỏ chọn -->
+    <label><input type="radio" name="gender" value="Male">Male</label>
+    <label><input type="radio" name="gender" value="Female">Female</label>
+    <label><input type="radio" name="gender" value="XXX">XXX</label>
+    <label><input type="radio" name="gender" value="ZZZ">ZZZ</label>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">Title</div>
+  <div class="field"><input type="text" value="Sales Representative"></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">Suffix</div>
+  <div class="field"><input type="text" value="Ms."></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">BirthDate</div>
+  <div class="field"><input type="text" value="1969-07-02 00:00:00"></div>
+  <div class="out-icon">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">HireDate</div>
+  <div class="field"><input type="text" value="1994-11-15 00:00:00"></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">SSN # (if applicable)</div>
+  <div class="field has-icon">
+    <input type="text">
+    <span class="in-icon">🔍</span>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">Reports To</div>
+  <div class="field">
+    <select class="short">
+      <option>Buchanan</option>
+    </select>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<!-- ===== Contact Info ===== -->
+<div class="sec-head"><span>Contact Info</span><i></i></div>
+
+<div class="row"><div class="label">Email</div><div class="field"><input type="text" placeholder="name@example.com"></div><div class="out-empty">(?)</div></div>
+<div class="row"><div class="label">Address</div><div class="field"><input type="text" value="7 Houndstooth Rd."></div><div class="out-empty">(?)</div></div>
+<div class="row"><div class="label">City</div><div class="field"><input type="text" value="London"></div><div class="out-empty">(?)</div></div>
+<div class="row"><div class="label">Region</div><div class="field"><input type="text"></div><div class="out-empty">(?)</div></div>
+<div class="row"><div class="label">Postal Code</div><div class="field"><input type="text" value="WG2 7LT"></div><div class="out-empty">(?)</div></div>
+
+<div class="row">
+  <div class="label">Country</div>
+  <div class="field">
+    <select class="short"><option>Russian Federation</option></select>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row"><div class="label">US Home Phone</div><div class="field"><input type="text" value="(234)234-2342"></div><div class="out-empty">(?)</div></div>
+<div class="row"><div class="label">Photo</div><div class="field"><input type="text" value="EmpID9.bmp"></div><div class="out-empty">(?)</div></div>
+
+<!-- ===== Optional Info ===== -->
+<div class="sec-head"><span>Optional Info</span><i></i></div>
+
+<div class="row notes">
+  <div class="label">Notes</div>
+  <div class="field">
+    <div class="editor">
+      <div class="toolbar">
+        <div class="tool">B</div><div class="tool">I</div><div class="tool">U</div>
+        <div class="tool">•</div><div class="tool">1.</div><div class="tool">≡</div>
+        <div class="tool">x₂</div><div class="tool">x²</div><div class="tool">↩</div>
+        <div class="tool">↪</div><div class="tool">X</div>
+      </div>
+      <div class="editor-area">
+        Anne has a BA degree in English from St. Lawrence College.<br>
+        She is fluent in French and German.ZZZ
+      </div>
+    </div>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row top">
+  <div class="label">Preferred Shift</div>
+  <div class="field checks">
+    <label><input type="checkbox">Regular</label>
+    <label><input type="checkbox" checked>Gravy Yard</label>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row">
+  <div class="label">Active?</div>
+  <div class="field"><input type="checkbox" checked></div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="row top">
+  <div class="label">Are you human?</div>
+  <div class="field">
+    <div class="captcha-wrap">
+      <div class="captcha-top">
+        <div class="captcha-code">TIDAWO</div>
+        <div class="captcha-change">Click to change</div>
+      </div>
+      <input class="captcha-input" type="text">
+    </div>
+  </div>
+  <div class="out-empty">(?)</div>
+</div>
+
+<div class="nav-left">
+  <div class="nav-btn">◀</div>
+  <div class="nav-btn">▶</div>
+</div>
+
+<div class="footer">
+  <div class="required">* <span>required</span></div>
+  <div class="buttons">
+    <div class="btn"><span></span>Submit</div>
+    <div class="btn cancel"><span>×</span>Cancel</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

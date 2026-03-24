@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>HR Management - Employee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f3f4f6;
+  color:#111;
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+  background:#1f2937;
+  height:56px;
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  color:#fff;
+}
+.brand{
+  font-weight:700;
+  margin-right:20px;
+}
+.navbar a{
+  color:#d1d5db;
+  text-decoration:none;
+  margin-right:16px;
+  font-size:14px;
+}
+.navbar a:hover{
+  color:#fff;
+}
+.spacer{ flex:1; }
+
+/* SEARCH giống ảnh */
+.search-box{
+  display:flex;
+}
+.search-box input{
+  height:32px;
+  width:220px;
+  padding:0 10px;
+  border:1px solid #d1d5db;
+  border-radius:4px 0 0 4px;
+  background:#fff;
+  color:#111;
+}
+.search-box button{
+  height:32px;
+  padding:0 14px;
+  border-radius:0 4px 4px 0;
+  border:1px solid #111827;
+  background:#111827;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* ===== MAIN ===== */
+.container{
+  max-width:1100px;
+  margin:24px auto;
+  padding:0 16px;
+}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+.header h2{
+  font-size:26px;
+}
+.btn-add{
+  background:#2563eb;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* ===== TABLE ===== */
+.card{
+  background:#fff;
+  border-radius:6px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+thead{
+  background:#f9fafb;
+}
+th,td{
+  padding:12px 14px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+  font-size:14px;
+}
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* Position = text thường */
+.position{
+  color:#111;
+  font-weight:normal;
+}
+
+/* Action buttons */
+.actions{
+  display:flex;
+  gap:8px;
+}
+.btn{
+  border:none;
+  padding:6px 10px;
+  border-radius:4px;
+  font-size:13px;
+  cursor:pointer;
+}
+.btn-edit{
+  background:#facc15;
+}
+.btn-delete{
+  background:#ef4444;
+  color:#fff;
+}
+
+/* ===== MODAL ===== */
+#modal-toggle{ display:none; }
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  opacity:0;
+  pointer-events:none;
+}
+.modal{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:800px;
+  max-width:95%;
+  opacity:0;
+  pointer-events:none;
+}
+#modal-toggle:checked ~ .overlay{
+  opacity:1;
+  pointer-events:auto;
+}
+#modal-toggle:checked ~ .modal{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-box{
+  background:#fff;
+  border-radius:6px;
+  overflow:hidden;
+}
+.modal-header{
+  background:#2563eb;
+  color:#fff;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+}
+.close{
+  cursor:pointer;
+  font-size:18px;
+}
+.modal-body{
+  padding:16px;
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.field label{
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:6px;
+  display:block;
+}
+.field input,
+.field select{
+  width:100%;
+  height:36px;
+  padding:0 10px;
+  border:1px solid #d1d5db;
+  border-radius:4px;
+  background:#fff;
+}
+
+/* Sex */
+.sex-field{
+  grid-column:1 / -1;
+}
+.sex-options{
+  display:flex;
+  gap:16px;
+  margin-top:4px;
+}
+.sex-options input{
+  width:14px;
+  height:14px;
+}
+
+/* Footer */
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding:12px 16px;
+  border-top:1px solid #e5e7eb;
+}
+.btn-save{
+  background:#16a34a;
+  color:#fff;
+}
+.btn-cancel{
+  background:#e5e7eb;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+  <div class="brand">HR Management</div>
+  <a href="#">Home</a>
+  <a href="#">Contact</a>
+  <div class="spacer"></div>
+  <div class="search-box">
+    <input type="text" placeholder="Search...">
+    <button>Search</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+  <div class="header">
+    <h2>Employee</h2>
+    <label for="modal-toggle" class="btn-add">+ Add</label>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Position</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td><td>Fatima Beatriz</td><td>FatimaBeatriz@gmail.com</td><td>0985674321</td>
+          <td class="position">Staff</td>
+          <td class="actions">
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td><td>Gabriel Hanna</td><td>GabrielHanna@gmail.com</td><td>0353674231</td>
+          <td class="position">Staff</td>
+          <td class="actions">
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td><td>Charles Diya</td><td>Charles Diya@gmail.com</td><td>0347658833</td>
+          <td class="position">Staff</td>
+          <td class="actions">
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>4</td><td>Frank Lamdo</td><td>Frank Lamdo@gmail.com</td><td>0975444768</td>
+          <td class="position">Manager</td>
+          <td class="actions">
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td><td>Louis Tom</td><td>Louis Tom@gmail.com</td><td>0789568233</td>
+          <td class="position">Staff</td>
+          <td class="actions">
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-delete">Delete</button>
+          </td>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL -->
+<input type="checkbox" id="modal-toggle">
+<label for="modal-toggle" class="overlay"></label>
+
+<div class="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>New Employee</span>
+      <label for="modal-toggle" class="close">×</label>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Name</label>
+          <input>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input>
+        </div>
+        <div class="field">
+          <label>Position</label>
+          <select>
+            <option>-- Select Position --</option>
+            <option>Staff</option>
+            <option>Manager</option>
+            <option>CEO</option>
+          </select>
+        </div>
+
+        <div class="sex-field">
+          <label>Sex</label>
+          <div class="sex-options">
+            <label><input type="radio" name="sex"> Male</label>
+            <label><input type="radio" name="sex"> Female</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-save">Save</button>
+      <label for="modal-toggle" class="btn btn-cancel">Cancel</label>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
